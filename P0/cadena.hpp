@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <stdexcept>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ class Cadena
 
 // 		################ OBSERVADORES ################
 
-		size_t length() const;
+		size_t length() const noexcept;
 
 
 // 		################ OPERADORES ################
@@ -48,8 +49,10 @@ class Cadena
 		char& at(size_t indice);
 		const char& at(size_t indice) const;
 
+		Cadena substr(size_t indice, size_t tam) const;
 
 
+		~Cadena();
 
 	private:
 

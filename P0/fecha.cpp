@@ -17,12 +17,12 @@ const int Fecha::AnnoMaximo(2037); // qué es más eficiente, tener que llamar a
 Fecha::Fecha(int dia_, int mes_, int anno_): d(dia_), m(mes_), a(anno_)
 {
 
-	std::time_t tiempo_calendario = std::time(nullptr);
-	std::tm* tiempo_descompuesto = std::localtime(&tiempo_calendario);
-
 	if (d == 0 || m == 0 || a == 0)	
 	{
-		if (d == 0)
+    std::time_t tiempo_calendario = std::time(nullptr);
+    std::tm* tiempo_descompuesto = std::localtime(&tiempo_calendario);
+		
+    if (d == 0)
 			d = tiempo_descompuesto->tm_mday;
 		if (m == 0)
 			m = tiempo_descompuesto->tm_mon+1;
@@ -44,16 +44,17 @@ Fecha::Fecha(const char* c)
 		throw formato;
 	}
 
-	std::time_t tiempo_calendario = std::time(nullptr);
-	std::tm* tiempo_descompuesto = std::localtime(&tiempo_calendario);
-
 	if (d == 0 || m == 0 || a == 0)	
 	{
+
+    std::time_t tiempo_calendario = std::time(nullptr);
+    std::tm* tiempo_descompuesto = std::localtime(&tiempo_calendario);
+
 		if (d == 0)
 			d = tiempo_descompuesto->tm_mday;
 		if (m == 0)
 			m = tiempo_descompuesto->tm_mon+1;
-		if(a == 0)
+		if (a == 0)
 			a = tiempo_descompuesto->tm_year+1900;
 	}
 
@@ -64,8 +65,7 @@ Fecha::Fecha(const char* c)
 Fecha::operator const char*() const
 {
 	std::locale::global(std::locale("es_ES.utf8"));
-
-	static char *cadena = new char[36];
+	static char cadena[36];
 	
 	std::time_t tiempo_calendario = std::time(nullptr);
 	std::tm* f = std::localtime(&tiempo_calendario);
@@ -76,7 +76,7 @@ Fecha::operator const char*() const
 
 	mktime(f);
 
-	strftime(cadena,36,"%A %e de %B del %Y", f);
+	strftime(cadena,36,"%A %e de %B de %Y", f);
 
 	return cadena;
 }
@@ -129,57 +129,59 @@ Fecha& Fecha::operator +=(int n)
 	m = fecha_tm.tm_mon + 1;
 	a = fecha_tm.tm_year + 1900;
 
+	fecha_valida();
+
 
 	return *this;
 }
 
 Fecha& Fecha::operator -=(int n)
 {
-	return *this += -n;
+	return *this+= -n;
 }
 
 Fecha& Fecha::operator ++()
 {
-	return *this += 1;
+	return *this+= 1;
 }
 
-Fecha& Fecha::operator ++(int)
+Fecha Fecha::operator ++(int)
 {
-	Fecha *t = new Fecha(*this);
+	Fecha t(*this);
 
 	*this += 1;
 
-	return *t;
+	return t;
 }
 
 Fecha& Fecha::operator --()
 {
-	return *this += -1;
+	return *this+= -1;
 }
 
-Fecha& Fecha::operator --(int)
+Fecha Fecha::operator --(int)
 {
-	Fecha *t = new Fecha(*this);
+	Fecha t(*this);
 
 	*this += -1;
 
-	return *t;
+	return t;
 }
 
 // ARITMÉTICOS
 
-Fecha operator +(const Fecha& F, int n)
+Fecha Fecha::operator +(int n) const
 {
-	Fecha t(F);
+	Fecha t(*this);
 
-	return  t += n;
+	return  t+= n;
 }
 
-Fecha operator -(const Fecha& F, int n)
+Fecha Fecha::operator -(int n) const
 {
-	Fecha t(F);
+	Fecha t(*this);
 
-	return t += -n;
+	return t+= -n;
 }
 
 

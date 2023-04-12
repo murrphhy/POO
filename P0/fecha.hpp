@@ -7,7 +7,6 @@
 #include <ctime>
 #include <cstdio>
 
-
 using namespace std;
 
 class Fecha
@@ -70,9 +69,14 @@ class Fecha
 		Fecha& operator +=(int n);
 		Fecha& operator -=(int n);
 		Fecha& operator ++();
-		Fecha& operator ++(int);			// La razón por la que se define la versión sobrecargada de f++ con un argumento int es que algunos compiladores de C++ requieren 
+		Fecha operator ++(int);			// La razón por la que se define la versión sobrecargada de f++ con un argumento int es que algunos compiladores de C++ requieren 
 		Fecha& operator --();				// que las versiones prefijo y sufijo de un operador tengan diferente número de argumentos.
-		Fecha& operator --(int);
+		Fecha operator --(int);
+
+		// Aritméticos		
+		Fecha operator +(int n) const;  
+		Fecha operator -(int n) const;
+
 
 	private:
 		int d, m, a;
@@ -101,9 +105,6 @@ bool operator >= (const Fecha& F, const Fecha& T);
 
 	
 
-// Aritméticos		
-Fecha operator +(const Fecha& F, int n);  
-Fecha operator -(const Fecha F, int n);
 
 
 #endif

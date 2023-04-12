@@ -20,7 +20,8 @@ char Cadena::NULO('\0');
 
 Cadena::Cadena(size_t tam, char c): tam_(tam), s_(new char[tam+1])
 {
-	size_t i{0};
+	size_t i = 0;
+
 	while(i != tam_)
 	{
 		s_[i] = c;
@@ -75,7 +76,7 @@ Cadena::operator const char*() const
 //  	################ OBSERVADORES ################
 //		##############################################
 
-size_t Cadena::length() const
+inline size_t Cadena::length() const noexcept
 {
 	return this->tam_;
 }
@@ -92,20 +93,19 @@ size_t Cadena::length() const
 
 Cadena& Cadena::operator += (const Cadena& D)
 {
-	size_t i{this->tam_}, j{0};
+  size_t j = 0;
+	char *aux = new char[tam_+D.tam_+1];
 
-	this->tam_= this->tam_ + D.tam_;
+  for (size_t i=0; i < tam_; i++) 
+    aux[i] = s_[i];
+  for (size_t i = tam_; i < (tam_+D.tam_+1); i++,j++) 
+    aux[i] = D.s_[j];
 
-	while(i != this->tam_)
-	{
-		this->s_[i] = D.s_[j];
-		i++;
-		j++;
-	}
+  Cadena A(aux);
+  delete [] aux;
+  *this = A;
 
-	this->s_[tam_] = NULO;
-
-	return *this;
+  return *this;
 }
 
 
@@ -125,6 +125,8 @@ Cadena operator + (const Cadena& C, const Cadena& D)
 	strcpy(cadena,(const char*)C);
 
 	Cadena A (strcat(cadena, (const char*)D));
+
+  delete []cadena;
 
 	return A;
 }
@@ -151,7 +153,7 @@ const char& Cadena::operator [] (size_t indice) const
 
 char& Cadena::at(size_t indice)
 {
-	if (indice < 0 || indice > tam_)
+	if ((long int)indice < 0 || indice >= tam_) 
 		throw std::out_of_range(" Se está intentando acceder a una posición que no existe.");
 	else
 		return s_[indice]; 
@@ -159,11 +161,32 @@ char& Cadena::at(size_t indice)
 
 const char& Cadena::at(size_t indice)const
 {
-	if (indice < 0 || indice > tam_)
+	if ((long int)indice < 0 || indice >= tam_)
 		throw std::out_of_range(" Se está intentando acceder a una posición que no existe.");
 	else
 		return s_[indice]; 	
 }
+
+
+Cadena Cadena::substr(size_t indice, size_t tam) const
+{
+	
+
+	if ((indice + tam) > this->tam_ || (long int)tam < 0 || (long int)indice < 0)
+		throw std::out_of_range(" El intervalo se sale de los límites de la cadena. ");
+
+	Cadena cad(tam);
+
+	for (size_t i = 0; i < tam; i++, indice++)
+		cad.s_[i] = this->s_[indice];
+
+	cad.s_[tam] = NULO;
+
+
+	return cad;
+	
+}
+
 
 
 
@@ -205,4 +228,11 @@ bool operator > (const Cadena& C, const Cadena& D)
 bool operator >= (const Cadena& C, const Cadena& D)
 {
 	return !(C < D);
+}
+
+
+Cadena::~Cadena()
+{
+	delete []s_;
+
 }
