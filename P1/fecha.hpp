@@ -6,7 +6,10 @@
 #include <cassert>
 #include <ctime>
 #include <cstdio>
+<<<<<<< HEAD
 #include <istream>
+=======
+>>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 
 using namespace std;
 
@@ -32,7 +35,11 @@ class Fecha
 
 		Fecha(const char* c);											// Constructor (cadena de caracteres)
 
+<<<<<<< HEAD
 		const char* cadena() const;
+=======
+		operator const char* () const;									// Constructor de conversión Fecha -> const char*
+>>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 
 
 //  	################ OBSERVADORES ################
@@ -102,11 +109,15 @@ bool operator != (const Fecha& F, const Fecha& T);
 bool operator >= (const Fecha& F, const Fecha& T);
 
 
+<<<<<<< HEAD
 //################ OPERADORES E/S #################
 
 std::istream& operator >>(istream& is,Fecha& F);
 
 std::ostream& operator <<(ostream& os,const Fecha& F) noexcept;
+=======
+//################ OPERADORES ARITMÉTICOS ################
+>>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 
 	
 

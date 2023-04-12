@@ -61,6 +61,7 @@ Fecha::Fecha(const char* c)
 	fecha_valida();
 }
 
+<<<<<<< HEAD
 const char* Fecha::cadena()const
 {
   std::locale::global(std::locale("es_ES.utf8"));
@@ -79,6 +80,29 @@ const char* Fecha::cadena()const
   return cad;
 }
 
+=======
+
+Fecha::operator const char*() const
+{
+	std::locale::global(std::locale("es_ES.utf8"));
+	static char cadena[36];
+	
+	std::time_t tiempo_calendario = std::time(nullptr);
+	std::tm* f = std::localtime(&tiempo_calendario);
+
+	f->tm_mday = d;
+	f->tm_mon = m-1;
+	f->tm_year = a - 1900;
+
+	mktime(f);
+
+	strftime(cadena,36,"%A %e de %B de %Y", f);
+
+	return cadena;
+}
+
+
+>>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 Fecha::Invalida::Invalida(const char* error): e(error)
 {}
 
@@ -269,6 +293,7 @@ int Fecha::dias_mes() const
 	}
 	return 0;
 }
+<<<<<<< HEAD
 
 
 std::istream& operator >>(istream& is,Fecha& F)
@@ -295,3 +320,5 @@ std::ostream& operator <<(ostream& os, const Fecha& F) noexcept
   os << F.cadena();
   return os;
 }
+=======
+>>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
