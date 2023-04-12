@@ -6,10 +6,7 @@
 #include <iostream>
 #include <cstring>
 #include <stdexcept>
-<<<<<<< HEAD
 #include <iterator>
-=======
->>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 
 using namespace std;
 
@@ -18,7 +15,6 @@ class Cadena
 {
 	public:
 
-<<<<<<< HEAD
     
     typedef char* iterator;
     typedef const char* const_iterator;
@@ -26,8 +22,6 @@ class Cadena
     typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
 
-=======
->>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 // 		################ ATRIBUTOS ESTÁTICOS ################		
 
 		static char NULO;
@@ -35,7 +29,6 @@ class Cadena
 
 // 		################ CONSTRUCTORES ################
 
-<<<<<<< HEAD
 		explicit Cadena(size_t tam = 0, char c = ' ');    	// Constructor con 2,1 parámetros
 
 		Cadena(const Cadena& C);							              // Constructor de copia
@@ -52,22 +45,10 @@ class Cadena
 
     explicit operator const char*()const;
 
-=======
-		explicit Cadena(size_t tam = 0, char c = ' ');	// Constructor con 2,1 parámetros
-
-		Cadena(const Cadena& C);							// Constructor de copia
-		
-		Cadena(const char* cad);							// Constructor de un objeto Cadena con un parametro de tipo const char*
-
-		Cadena& operator = (const Cadena& C);				// Operador de asignación
-
-		explicit operator const char*() const;						//  Operador de conversión Cadena -> const char*.
->>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 
 
 // 		################ OBSERVADORES ################
 
-<<<<<<< HEAD
 		size_t length() const noexcept;                     // TAMAÑO
 
     
@@ -109,25 +90,6 @@ class Cadena
 
 
 
-=======
-		size_t length() const;
-
-
-// 		################ OPERADORES ################
-
-		Cadena& operator += (const Cadena& D);				// Suma con asignación
-
-// 		################ OPERADORES DE INDIZACIÓN ################
-		
-		char& operator [](size_t indice); 					// Modificadora
-		const char& operator[](size_t indice) const ; 		// Observadora
-
-		char& at(size_t indice);
-		const char& at(size_t indice) const;
-
-		Cadena substr(size_t indice, size_t tam) const;
-
->>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 
 		~Cadena();
 
@@ -161,7 +123,6 @@ bool operator >= (const Cadena& C, const Cadena& D);
 
 
 
-<<<<<<< HEAD
 //################ OPERADORES E/S ################
 
 std::ostream& operator <<(std::ostream& os,const Cadena& C) noexcept;
@@ -171,8 +132,6 @@ std::istream& operator >>(std::istream& is,Cadena& C);
 
 
 
-=======
->>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
 #endif	
 
 
@@ -189,8 +148,4 @@ std::istream& operator >>(std::istream& is,Cadena& C);
 	Conversor de Const char a cadena.
 
 
-<<<<<<< HEAD
 */
-=======
-*/
->>>>>>> bf3466ef235334ca557e2feeb119b43bca011b3b
